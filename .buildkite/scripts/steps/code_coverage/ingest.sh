@@ -16,16 +16,18 @@ echo "--- downloadPrevSha"
 previousSha=$(.buildkite/scripts/steps/code_coverage/ingest/downloadPrevSha.sh)
 echo "previousSha = $previousSha"
 echo "--- uploadPrevSha"
-.buildkite/scripts/steps/code_coverage/ingest/uploadPrevSha.sh
+echo "GIT_BRANCH = $GIT_BRANCH"
+#.buildkite/scripts/steps/code_coverage/ingest/uploadPrevSha.sh
 
 .buildkite/scripts/bootstrap.sh
 
 node scripts/build_kibana_platform_plugins.js --no-cache
 
 echo "--- generateTeamAssignments"
-.buildkite/scripts/steps/code_coverage/ingest/generateTeamAssignments.sh
+#.buildkite/scripts/steps/code_coverage/ingest/generateTeamAssignments.sh
 
-export timestamp=$(date +"%Y-%m-%dT%H:%M:%S:00Z")
+timestamp=$(date +"%Y-%m-%dT%H:%M:%S:00Z")
+export TIME_STAMP=timestamp
 
 # download coverage arctifacts
 buildkite-agent artifact download target/kibana-coverage/jest/* . --build "${KIBANA_BUILD_ID:-$BUILDKITE_BUILD_ID}"
