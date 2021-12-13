@@ -13,10 +13,10 @@ export PASS_FROM_VAULT="$(retry 5 5 vault read -field=password secret/kibana-iss
 export HOST_FROM_VAULT="$(retry 5 5 vault read -field=host secret/kibana-issues/prod/coverage/elasticsearch)"
 
 echo "--- downloadPrevSha"
-export previousSha=$(.buildkite/scripts/steps/code_coverage/ingest/downloadPrevSha.sh)
-echo $previousSha
+previousSha=$(.buildkite/scripts/steps/code_coverage/ingest/downloadPrevSha.sh)
+echo "previousSha = $previousSha"
 echo "--- uploadPrevSha"
-#.buildkite/scripts/steps/code_coverage/ingest/uploadPrevSha.sh
+.buildkite/scripts/steps/code_coverage/ingest/uploadPrevSha.sh
 
 .buildkite/scripts/bootstrap.sh
 
@@ -32,10 +32,12 @@ buildkite-agent artifact download target/kibana-coverage/jest/* . --build "${KIB
 #buildkite-agent artifact download target/kibana-coverage/functional/* . --build "${KIBANA_BUILD_ID:-$BUILDKITE_BUILD_ID}"
 
 # process HTML Links
-#.buildkite/scripts/steps/code_coverage/ingest/prokLinks.sh
+echo "--- process HTML Links"
+.buildkite/scripts/steps/code_coverage/ingest/prokLinks.sh
 
 # collect VCS Info
-#.buildkite/scripts/steps/code_coverage/ingest/collectVcsInfo.sh
+echo "--- collect VCS Info"
+.buildkite/scripts/steps/code_coverage/ingest/collectVcsInfo.sh
 
 # replace path in json files and generate final reports
 export COVERAGE_TEMP_DIR=$KIBANA_DIR/target/kibana-coverage
