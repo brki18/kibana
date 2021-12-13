@@ -26,8 +26,8 @@ node scripts/build_kibana_platform_plugins.js --no-cache
 echo "--- generateTeamAssignments"
 .buildkite/scripts/steps/code_coverage/ingest/generateTeamAssignments.sh
 
-timestamp=$(date +"%Y-%m-%dT%H:%M:%S:00Z")
-export TIME_STAMP=timestamp
+export timestamp=$(date +"%Y-%m-%dT%H:%M:%S:00Z")
+export TIME_STAMP=${timestamp}
 
 # download coverage arctifacts
 buildkite-agent artifact download target/kibana-coverage/jest/* . --build "${KIBANA_BUILD_ID:-$BUILDKITE_BUILD_ID}"
@@ -63,7 +63,7 @@ tar -czf target/kibana-coverage/jest/kibana-jest-coverage.tar.gz target/kibana-c
 # upload combined reports
 ls -laR target/kibana-coverage/
 # upload upload coverage static site
-#.buildkite/scripts/steps/code_coverage/ingest/uploadStaticSite.sh
+.buildkite/scripts/steps/code_coverage/ingest/uploadStaticSite.sh
 # ingest results to Kibana stats cluster
 export BUILD_NUMBER=12345
 #.src/dev/code_coverage/shell_scripts/generate_team_assignments_and_ingest_coverage.sh 'code-coverage' ${BUILD_NUMBER} '${BUILD_URL}' '${previousSha}' 'src/dev/code_coverage/ingest_coverage/team_assignment/team_assignments.txt'
