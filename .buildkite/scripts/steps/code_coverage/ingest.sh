@@ -17,14 +17,14 @@ previousSha=$(.buildkite/scripts/steps/code_coverage/ingest/downloadPrevSha.sh)
 echo "previousSha = $previousSha"
 echo "--- uploadPrevSha"
 echo "GIT_BRANCH = $GIT_BRANCH"
-#.buildkite/scripts/steps/code_coverage/ingest/uploadPrevSha.sh
+.buildkite/scripts/steps/code_coverage/ingest/uploadPrevSha.sh
 
 .buildkite/scripts/bootstrap.sh
 
 node scripts/build_kibana_platform_plugins.js --no-cache
 
 echo "--- generateTeamAssignments"
-#.buildkite/scripts/steps/code_coverage/ingest/generateTeamAssignments.sh
+.buildkite/scripts/steps/code_coverage/ingest/generateTeamAssignments.sh
 
 timestamp=$(date +"%Y-%m-%dT%H:%M:%S:00Z")
 export TIME_STAMP=timestamp
