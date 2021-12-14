@@ -17,6 +17,7 @@ const client = new Client({ node });
 const isResearchJob = process.env.COVERAGE_JOB_NAME === RESEARCH_CI_JOB_NAME ? true : false;
 
 export const ingestList = (log) => async (xs) => {
+  console.log(`process.env.NODE_ENV=${process.env.NODE_ENV}`);
   fromNullable(process.env.NODE_ENV).fold(bulkIngest, justLog);
 
   async function bulkIngest() {
