@@ -27,16 +27,14 @@ echo "--- Upload new git sha"
 
 echo "--- Generate team assignments file"
 .buildkite/scripts/steps/code_coverage/ingest/generateTeamAssignments.sh
-
-# download coverage arctifacts
+ 
+echo "--- Download coverage arctifacts"
 buildkite-agent artifact download target/kibana-coverage/jest/* . --build "${KIBANA_BUILD_ID:-$BUILDKITE_BUILD_ID}"
 #buildkite-agent artifact download target/kibana-coverage/functional/* . --build "${KIBANA_BUILD_ID:-$BUILDKITE_BUILD_ID}"
 
-# process HTML Links
 echo "--- process HTML Links"
 .buildkite/scripts/steps/code_coverage/ingest/prokLinks.sh
 
-# collect VCS Info
 echo "--- collect VCS Info"
 .buildkite/scripts/steps/code_coverage/ingest/collectVcsInfo.sh
 
@@ -68,4 +66,4 @@ echo "--- Ingest results to Kibana stats cluster"
 # CI_RUN_URL
 # FETCHED_PREVIOUS
 # TEAM_ASSIGN_PATH
-.src/dev/code_coverage/shell_scripts/generate_team_assignments_and_ingest_coverage.sh 'code-coverage' ${BUILDKITE_BUILD_ID} '${BUILDKITE_BUILD_URL}' '${previousSha}' 'src/dev/code_coverage/ingest_coverage/team_assignment/team_assignments.txt'
+src/dev/code_coverage/shell_scripts/generate_team_assignments_and_ingest_coverage.sh 'code-coverage' ${BUILDKITE_BUILD_ID} '${BUILDKITE_BUILD_URL}' '${previousSha}' 'src/dev/code_coverage/ingest_coverage/team_assignment/team_assignments.txt'

@@ -44,5 +44,9 @@ export BUFFER_SIZE
 # done
 # wait
 
+echo "### Ingesting coverage for jest"
+COVERAGE_SUMMARY_FILE=target/kibana-coverage/jest-combined/coverage-summary.json
+node scripts/ingest_coverage.js --path ${COVERAGE_SUMMARY_FILE} --vcsInfoPath ./VCS_INFO.txt --teamAssignmentsPath $TEAM_ASSIGN_PATH
+
 echo "###  Ingesting Code Coverage - Complete"
 echo ""
