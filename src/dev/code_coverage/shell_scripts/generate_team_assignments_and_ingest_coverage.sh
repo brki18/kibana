@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 echo "### Ingesting Code Coverage"
 echo ""
@@ -46,6 +48,7 @@ export BUFFER_SIZE
 
 echo "### Ingesting coverage for jest"
 COVERAGE_SUMMARY_FILE=target/kibana-coverage/jest-combined/coverage-summary.json
+echo "### Running node scripts/ingest_coverage.js"
 node scripts/ingest_coverage.js --path ${COVERAGE_SUMMARY_FILE} --vcsInfoPath ./VCS_INFO.txt --teamAssignmentsPath $TEAM_ASSIGN_PATH
 
 echo "###  Ingesting Code Coverage - Complete"

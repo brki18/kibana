@@ -27,6 +27,7 @@ export function runCoverageIngestionCli() {
     ({ flags, log }) => {
       guard(flags);
 
+      console.log(`running ingestion`);
       const resolveRoot = resolve.bind(null, ROOT);
       const jsonSummaryPath = resolveRoot(flags.path);
       const vcsInfoFilePath = resolveRoot(flags.vcsInfoPath);
