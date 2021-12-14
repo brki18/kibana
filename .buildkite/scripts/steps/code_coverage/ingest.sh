@@ -26,7 +26,8 @@ node scripts/build_kibana_platform_plugins.js --no-cache
 echo "--- generateTeamAssignments"
 .buildkite/scripts/steps/code_coverage/ingest/generateTeamAssignments.sh
 
-export timestamp=$(date +"%Y-%m-%dT%H:%M:%S:00Z")
+#export timestamp=$(date +"%Y-%m-%dT%H:%M:%S:00Z")
+export timestamp=$(date +"%Y-%m-%dT%H:%M:00Z")
 export TIME_STAMP=${timestamp}
 
 # download coverage arctifacts
@@ -44,7 +45,7 @@ echo "--- collect VCS Info"
 # replace path in json files and generate final reports
 export COVERAGE_TEMP_DIR=$KIBANA_DIR/target/kibana-coverage
 sed -i "s|/opt/local-ssd/buildkite/builds/kb-[[:alnum:]\-]\{20,27\}/elastic/kibana-code-coverage-main/kibana|${KIBANA_DIR}|g" $COVERAGE_TEMP_DIR/jest/*.json
-echo $BUILDKITE_BUILD_ID
+
 echo "--- Jest: merging coverage files and generating the final combined report"
 yarn nyc report --nycrc-path src/dev/code_coverage/nyc_config/nyc.jest.config.js
 rm -rf target/kibana-coverage/jest && mkdir target/kibana-coverage/jest
@@ -65,5 +66,5 @@ ls -laR target/kibana-coverage/
 # upload upload coverage static site
 .buildkite/scripts/steps/code_coverage/ingest/uploadStaticSite.sh
 # ingest results to Kibana stats cluster
-export BUILD_NUMBER=12345
+export BUILD_NUMBER=${BUILDKITE_BUILD_ID}
 #.src/dev/code_coverage/shell_scripts/generate_team_assignments_and_ingest_coverage.sh 'code-coverage' ${BUILD_NUMBER} '${BUILD_URL}' '${previousSha}' 'src/dev/code_coverage/ingest_coverage/team_assignment/team_assignments.txt'

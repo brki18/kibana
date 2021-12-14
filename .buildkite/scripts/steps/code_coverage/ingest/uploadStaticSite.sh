@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-echo "timestamp=${timestamp}"
+echo "timestamp value = ${timestamp}"
 uploadPrefix="gs://elastic-bekitzur-kibana-coverage-live/"
 uploadPrefixWithTimeStamp="${uploadPrefix}${timestamp}/"
 
@@ -13,4 +13,9 @@ done
 # for x in 'target/kibana-coverage/functional-combined' 'target/kibana-coverage/jest-combined'; do
 #     gsutil -m cp -r -a public-read -z js,css,html ${x} '${uploadPrefixWithTimeStamp}'
 # done
-gsutil -m cp -r -a public-read -z js,css,html 'target/kibana-coverage/jest-combined' '${uploadPrefixWithTimeStamp}'
+echo "navigating to target/kibana-coverage/jest-combined"
+cd target/kibana-coverage/jest-combined
+echo "uploading report"
+gsutil -m cp -r -a public-read -z js,css,html gs://elastic-bekitzur-kibana-coverage-live/2021-12-14T12:04:00Z/
+echo "navigating to Kibana root folder"
+cd "$KIBANA_DIR"
