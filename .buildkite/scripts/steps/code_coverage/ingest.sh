@@ -14,7 +14,7 @@ export HOST_FROM_VAULT="$(retry 5 5 vault read -field=host secret/kibana-issues/
 
 echo "--- downloadPrevSha"
 previousSha=$(.buildkite/scripts/steps/code_coverage/ingest/downloadPrevSha.sh)
-echo "previousSha = $previousSha"
+echo "previousSha = ${previousSha}"
 echo "--- uploadPrevSha"
 echo "GIT_BRANCH = $GIT_BRANCH"
 .buildkite/scripts/steps/code_coverage/ingest/uploadPrevSha.sh
@@ -63,7 +63,8 @@ tar -czf target/kibana-coverage/jest/kibana-jest-coverage.tar.gz target/kibana-c
 
 # upload combined reports
 ls -laR target/kibana-coverage/
-# upload upload coverage static site
+# upload coverage static site
+echo "--- Upload coverage static site"
 .buildkite/scripts/steps/code_coverage/ingest/uploadStaticSite.sh
 # ingest results to Kibana stats cluster
 export BUILD_NUMBER=${BUILDKITE_BUILD_ID}
