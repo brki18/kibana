@@ -31,6 +31,7 @@ import * as moment from 'moment';
 const ROOT = '../../../..';
 const COVERAGE_INGESTION_KIBANA_ROOT =
   process.env.COVERAGE_INGESTION_KIBANA_ROOT || resolve(__dirname, ROOT);
+console.log(`COVERAGE_INGESTION_KIBANA_ROOT=${COVERAGE_INGESTION_KIBANA_ROOT}`);
 const BUFFER_SIZE = process.env.BUFFER_SIZE || 100;
 const staticSiteUrlBase = process.env.STATIC_SITE_URL_BASE || 'https://kibana-coverage.elastic.dev';
 const format = 'YYYY-MM-DDTHH:mm:SS';

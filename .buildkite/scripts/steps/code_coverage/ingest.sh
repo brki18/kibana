@@ -62,4 +62,36 @@ echo "--- Upload coverage static site"
 
 echo "--- Ingest results to Kibana stats cluster"
 export NODE_ENV=test
-src/dev/code_coverage/shell_scripts/generate_team_assignments_and_ingest_coverage.sh 'elastic+kibana+code-coverage' ${BUILDKITE_BUILD_ID} ${BUILDKITE_BUILD_URL} ${previousSha} 'src/dev/code_coverage/ingest_coverage/team_assignment/team_assignments.txt'
+echo "### Ingesting Code Coverage"
+echo ""
+
+COVERAGE_JOB_NAME=elastic+kibana+code-coverage
+export COVERAGE_JOB_NAME
+echo "### debug COVERAGE_JOB_NAME: ${COVERAGE_JOB_NAME}"
+
+BUILD_ID=${BUILDKITE_BUILD_ID}
+export BUILD_ID
+
+CI_RUN_URL=${BUILDKITE_BUILD_URL}
+export CI_RUN_URL
+echo "### debug CI_RUN_URL: ${CI_RUN_URL}"
+
+FETCHED_PREVIOUS=${previousSha}
+export FETCHED_PREVIOUS
+echo "### debug FETCHED_PREVIOUS: ${FETCHED_PREVIOUS}"
+
+ES_HOST="https://${USER_FROM_VAULT}:${PASS_FROM_VAULT}@${HOST_FROM_VAULT}"
+export ES_HOST
+
+STATIC_SITE_URL_BASE='https://kibana-coverage.elastic.dev'
+export STATIC_SITE_URL_BASE
+
+BUFFER_SIZE=500
+export BUFFER_SIZE
+
+echo "### Running node scripts/ingest_coverage.js"
+node scripts/ingest_coverage.js --path target/kibana-coverage/jest-combined/coverage-summary.json --vcsInfoPath ./VCS_INFO.txt --teamAssignmentsPath src/dev/code_coverage/ingest_coverage/team_assignment/team_assignments.txt
+echo "###  Ingesting Code Coverage - Complete"
+
+
+#src/dev/code_coverage/shell_scripts/generate_team_assignments_and_ingest_coverage.sh 'elastic+kibana+code-coverage' ${BUILDKITE_BUILD_ID} ${BUILDKITE_BUILD_URL} ${previousSha} 'src/dev/code_coverage/ingest_coverage/team_assignment/team_assignments.txt'
