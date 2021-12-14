@@ -61,9 +61,4 @@ echo "--- Upload coverage static site"
 .buildkite/scripts/steps/code_coverage/ingest/uploadStaticSite.sh
 
 echo "--- Ingest results to Kibana stats cluster"
-# COVERAGE_JOB_NAME
-# BUILD_ID
-# CI_RUN_URL
-# FETCHED_PREVIOUS
-# TEAM_ASSIGN_PATH
-src/dev/code_coverage/shell_scripts/generate_team_assignments_and_ingest_coverage.sh 'code-coverage' ${BUILDKITE_BUILD_ID} '${BUILDKITE_BUILD_URL}' '${previousSha}' 'src/dev/code_coverage/ingest_coverage/team_assignment/team_assignments.txt'
+src/dev/code_coverage/shell_scripts/generate_team_assignments_and_ingest_coverage.sh 'code-coverage' ${BUILDKITE_BUILD_ID} ${BUILDKITE_BUILD_URL} ${previousSha} 'src/dev/code_coverage/ingest_coverage/team_assignment/team_assignments.txt'
