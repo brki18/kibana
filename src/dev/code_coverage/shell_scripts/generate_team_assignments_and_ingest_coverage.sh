@@ -25,6 +25,7 @@ STATIC_SITE_URL_BASE='https://kibana-coverage.elastic.dev'
 export STATIC_SITE_URL_BASE
 
 TEAM_ASSIGN_PATH=$5
+echo "### debug TEAM_ASSIGN_PATH: ${TEAM_ASSIGN_PATH}"
 
 BUFFER_SIZE=500
 export BUFFER_SIZE
@@ -35,13 +36,13 @@ export BUFFER_SIZE
 # Need to override COVERAGE_INGESTION_KIBANA_ROOT since json file has original intake worker path
 # export COVERAGE_INGESTION_KIBANA_ROOT=/dev/shm/workspace/kibana
 
-for x in functional jest; do
-  echo "### Ingesting coverage for ${x}"
-  COVERAGE_SUMMARY_FILE=target/kibana-coverage/${x}-combined/coverage-summary.json
-  # running in background to speed up ingestion
-  node scripts/ingest_coverage.js --path ${COVERAGE_SUMMARY_FILE} --vcsInfoPath ./VCS_INFO.txt --teamAssignmentsPath $TEAM_ASSIGN_PATH &
-done
-wait
+# for x in functional jest; do
+#   echo "### Ingesting coverage for ${x}"
+#   COVERAGE_SUMMARY_FILE=target/kibana-coverage/${x}-combined/coverage-summary.json
+#   # running in background to speed up ingestion
+#   node scripts/ingest_coverage.js --path ${COVERAGE_SUMMARY_FILE} --vcsInfoPath ./VCS_INFO.txt --teamAssignmentsPath $TEAM_ASSIGN_PATH &
+# done
+# wait
 
 echo "###  Ingesting Code Coverage - Complete"
 echo ""

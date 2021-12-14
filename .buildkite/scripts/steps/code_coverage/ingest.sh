@@ -7,28 +7,26 @@ source .buildkite/scripts/common/util.sh
 is_test_execution_step
 
 export CODE_COVERAGE=1
-echo "reading Kibana stats cluster creds from vault"
+echo "--- Reading Kibana stats cluster creds from vault"
 export USER_FROM_VAULT="$(retry 5 5 vault read -field=username secret/kibana-issues/prod/coverage/elasticsearch)"
 export PASS_FROM_VAULT="$(retry 5 5 vault read -field=password secret/kibana-issues/prod/coverage/elasticsearch)"
 export HOST_FROM_VAULT="$(retry 5 5 vault read -field=host secret/kibana-issues/prod/coverage/elasticsearch)"
+export timestamp=$(date +"%Y-%m-%dT%H:%M:00Z")
+export TIME_STAMP=${timestamp}
 
-echo "--- downloadPrevSha"
-previousSha=$(.buildkite/scripts/steps/code_coverage/ingest/downloadPrevSha.sh)
+echo "--- Download previous git sha"
+.buildkite/scripts/steps/code_coverage/ingest/downloadPrevSha.sh
+previousSha=$(cat downloaded_previous.txt)
 echo "previousSha = ${previousSha}"
-echo "--- uploadPrevSha"
-echo "GIT_BRANCH = $GIT_BRANCH"
+
+echo "--- Upload new git sha"
 .buildkite/scripts/steps/code_coverage/ingest/uploadPrevSha.sh
 
 .buildkite/scripts/bootstrap.sh
-
 #node scripts/build_kibana_platform_plugins.js --no-cache
 
-echo "--- generateTeamAssignments"
+echo "--- Generate team assignments file"
 .buildkite/scripts/steps/code_coverage/ingest/generateTeamAssignments.sh
-
-#export timestamp=$(date +"%Y-%m-%dT%H:%M:%S:00Z")
-export timestamp=$(date +"%Y-%m-%dT%H:%M:00Z")
-export TIME_STAMP=${timestamp}
 
 # download coverage arctifacts
 buildkite-agent artifact download target/kibana-coverage/jest/* . --build "${KIBANA_BUILD_ID:-$BUILDKITE_BUILD_ID}"
@@ -61,11 +59,13 @@ rm -rf target/kibana-coverage/jest && mkdir target/kibana-coverage/jest
 echo "--- Archive combined jest report"
 tar -czf target/kibana-coverage/jest/kibana-jest-coverage.tar.gz target/kibana-coverage/jest-combined
 
-# upload combined reports
-ls -laR target/kibana-coverage/
-# upload coverage static site
 echo "--- Upload coverage static site"
 .buildkite/scripts/steps/code_coverage/ingest/uploadStaticSite.sh
-# ingest results to Kibana stats cluster
-export BUILD_NUMBER=${BUILDKITE_BUILD_ID}
-#.src/dev/code_coverage/shell_scripts/generate_team_assignments_and_ingest_coverage.sh 'code-coverage' ${BUILD_NUMBER} '${BUILD_URL}' '${previousSha}' 'src/dev/code_coverage/ingest_coverage/team_assignment/team_assignments.txt'
+
+echo "--- Ingest results to Kibana stats cluster"
+# COVERAGE_JOB_NAME
+# BUILD_ID
+# CI_RUN_URL
+# FETCHED_PREVIOUS
+# TEAM_ASSIGN_PATH
+.src/dev/code_coverage/shell_scripts/generate_team_assignments_and_ingest_coverage.sh 'code-coverage' ${BUILDKITE_BUILD_ID} '${BUILDKITE_BUILD_URL}' '${previousSha}' 'src/dev/code_coverage/ingest_coverage/team_assignment/team_assignments.txt'
