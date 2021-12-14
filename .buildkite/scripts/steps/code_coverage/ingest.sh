@@ -21,7 +21,7 @@ echo "GIT_BRANCH = $GIT_BRANCH"
 
 .buildkite/scripts/bootstrap.sh
 
-node scripts/build_kibana_platform_plugins.js --no-cache
+#node scripts/build_kibana_platform_plugins.js --no-cache
 
 echo "--- generateTeamAssignments"
 .buildkite/scripts/steps/code_coverage/ingest/generateTeamAssignments.sh
