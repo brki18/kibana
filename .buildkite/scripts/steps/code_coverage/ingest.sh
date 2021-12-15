@@ -81,6 +81,7 @@ export FETCHED_PREVIOUS
 echo "### debug FETCHED_PREVIOUS: ${FETCHED_PREVIOUS}"
 
 ES_HOST="https://${USER_FROM_VAULT}:${PASS_FROM_VAULT}@${HOST_FROM_VAULT}"
+echo "ES_HOST=${ES_HOST}"
 export ES_HOST
 
 STATIC_SITE_URL_BASE='https://kibana-coverage.elastic.dev'
