@@ -61,7 +61,7 @@ echo "--- Upload coverage static site"
 .buildkite/scripts/steps/code_coverage/ingest/uploadStaticSite.sh
 
 echo "--- Ingest results to Kibana stats cluster"
-export NODE_ENV=test
+#export NODE_ENV=test
 
 ls -la src/dev/code_coverage/ingest_coverage/team_assignment
 
