@@ -17,22 +17,23 @@ const client = new Client({ node });
 const isResearchJob = process.env.COVERAGE_JOB_NAME === RESEARCH_CI_JOB_NAME ? true : false;
 
 export const ingestList = (log) => async (xs) => {
-  console.log(`process.env.NODE_ENV=${process.env.NODE_ENV}`);
   fromNullable(process.env.NODE_ENV).fold(bulkIngest, justLog);
 
   async function bulkIngest() {
-    log.verbose(`\n${ccMark} Ingesting ${xs.length} docs at a time`);
+    log.info(`\n${ccMark} Ingesting ${xs.length} docs at a time`);
 
     const body = parseIndexes(xs);
 
-    const { body: bulkResponse } = await client.bulk({ refresh: true, body });
+    const bulkResponse = await client.bulk({ refresh: true, body });
+    //const { body: bulkResponse } = result;
+    console.log(JSON.stringify(bulkResponse));
 
     handleErrors(body, bulkResponse)(log);
   }
 
   function justLog() {
-    log.verbose(`\n${ccMark} Just logging first item from current (buffered) bulk list`);
-    log.verbose(`\n${ccMark} ${JSON.stringify(xs[0], null, 2)}`);
+    log.info(`\n${ccMark} Just logging first item from current (buffered) bulk list`);
+    log.info(`\n${ccMark} ${JSON.stringify(xs[0], null, 2)}`);
   }
 };
 
