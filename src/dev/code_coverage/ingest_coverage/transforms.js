@@ -19,7 +19,6 @@ const maybeTotal = (x) => (x === 'total' ? Either.left(x) : Either.right(x));
 const trimLeftFrom = (text, x) => x.substr(x.indexOf(text));
 
 export const statsAndstaticSiteUrl = (...xs) => {
-  console.log(`statsAndstaticSiteUrl`);
   const [staticSiteUrl] = xs[0][1];
   const [stats] = xs[0];
   return {
@@ -63,7 +62,6 @@ const prokForCoverageIndex = (root) => (mutateFalse) => (urlRoot) => (obj) => (s
   )(siteUrl);
 
 export const staticSite = (urlBase) => (obj) => {
-  console.log(`staticSite`);
   const { staticSiteUrl, testRunnerType, COVERAGE_INGESTION_KIBANA_ROOT } = obj;
   const ts = obj['@timestamp'];
   const urlRoot = root(urlBase)(ts)(testRunnerType);
@@ -83,7 +81,6 @@ export const dropLeadingSlash = (x) => x.replace(leadingSlashRe, '');
 export const stripLeading = (x) => maybeDropLeadingSlash(x).fold(id, dropLeadingSlash);
 
 export const coveredFilePath = (obj) => {
-  console.log(`coveredFilePath`);
   const { staticSiteUrl, COVERAGE_INGESTION_KIBANA_ROOT } = obj;
 
   const withoutCoveredFilePath = always(obj);
@@ -146,7 +143,6 @@ export const prokPrevious = (comparePrefixF) => (currentSha) => {
   );
 };
 export const itemizeVcs = (vcsInfo) => (obj) => {
-  console.log(`itemizeVcs`);
   const [branch, sha, author, commitMsg] = vcsInfo;
 
   const vcs = {
@@ -173,7 +169,6 @@ export const itemizeVcs = (vcsInfo) => (obj) => {
   return withPreviousR();
 };
 export const testRunner = (obj) => {
-  console.log(`testRunner`);
   const { jsonSummaryPath } = obj;
 
   let testRunnerType = 'other';
@@ -194,7 +189,6 @@ export const testRunner = (obj) => {
 };
 
 export const buildId = (obj) => {
-  console.log(`buildId`);
   const { env } = process;
   if (env.BUILD_ID) obj.BUILD_ID = env.BUILD_ID;
 

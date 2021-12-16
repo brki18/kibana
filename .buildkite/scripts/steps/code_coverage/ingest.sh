@@ -25,8 +25,8 @@ echo "--- Upload new git sha"
 .buildkite/scripts/bootstrap.sh
 #node scripts/build_kibana_platform_plugins.js --no-cache
 
-echo "--- Generate team assignments file"
-.buildkite/scripts/steps/code_coverage/ingest/generateTeamAssignments.sh
+# echo "--- Generate team assignments file"
+# .buildkite/scripts/steps/code_coverage/ingest/generateTeamAssignments.sh
  
 echo "--- Download coverage arctifacts"
 buildkite-agent artifact download target/kibana-coverage/jest/* . --build "${KIBANA_BUILD_ID:-$BUILDKITE_BUILD_ID}"

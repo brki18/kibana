@@ -34,7 +34,7 @@ export BUFFER_SIZE
 echo "### debug BUFFER_SIZE: ${BUFFER_SIZE}"
 
 # Build team assignments dat file
-node scripts/generate_team_assignments.js --verbose --src .github/CODEOWNERS --dest $TEAM_ASSIGN_PATH
+CI_STATS_DISABLED=true node scripts/generate_team_assignments.js --verbose --src '.github/CODEOWNERS' --dest $TEAM_ASSIGN_PATH
 
 # Need to override COVERAGE_INGESTION_KIBANA_ROOT since json file has original intake worker path
 # export COVERAGE_INGESTION_KIBANA_ROOT=/dev/shm/workspace/kibana
@@ -50,7 +50,7 @@ node scripts/generate_team_assignments.js --verbose --src .github/CODEOWNERS --d
 echo "### Ingesting coverage for jest"
 COVERAGE_SUMMARY_FILE=target/kibana-coverage/jest-combined/coverage-summary.json
 echo "### Running node scripts/ingest_coverage.js"
-CI_STATS_DISABLED=true node scripts/ingest_coverage.js --path ${COVERAGE_SUMMARY_FILE} --vcsInfoPath ./VCS_INFO.txt --teamAssignmentsPath $TEAM_ASSIGN_PATH
+CI_STATS_DISABLED=true node scripts/ingest_coverage.js --verbose --path ${COVERAGE_SUMMARY_FILE} --vcsInfoPath ./VCS_INFO.txt --teamAssignmentsPath $TEAM_ASSIGN_PATH
 
 echo "###  Ingesting Code Coverage - Complete"
 echo ""
