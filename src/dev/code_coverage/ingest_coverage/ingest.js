@@ -13,6 +13,7 @@ import { fromNullable } from './either';
 import { always, id, flatMap, ccMark, lazyF } from './utils';
 
 const node = process.env.ES_HOST || 'http://localhost:9200';
+console.log(`node=${node}`);
 const client = new Client({
   node,
   maxRetries: 5,
@@ -21,7 +22,6 @@ const client = new Client({
 const isResearchJob = process.env.COVERAGE_JOB_NAME === RESEARCH_CI_JOB_NAME ? true : false;
 
 export const ingestList = (log) => async (xs) => {
-  console.log(`ingestList xs arg=${JSON.stringify(xs)}`);
   await bulkIngest();
   //fromNullable(process.env.NODE_ENV).fold(bulkIngest, justLog);
 
