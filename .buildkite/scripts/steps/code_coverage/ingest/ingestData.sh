@@ -31,7 +31,7 @@ echo "### debug TEAM_ASSIGN_PATH: ${TEAM_ASSIGN_PATH}"
 
 # BUFFER_SIZE=500
 # export BUFFER_SIZE
-echo "### debug BUFFER_SIZE: ${BUFFER_SIZE}"
+# echo "### debug BUFFER_SIZE: ${BUFFER_SIZE}"
 
 # Build team assignments dat file
 CI_STATS_DISABLED=true node scripts/generate_team_assignments.js --verbose --src '.github/CODEOWNERS' --dest $TEAM_ASSIGN_PATH
