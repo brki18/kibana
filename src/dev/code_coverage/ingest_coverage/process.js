@@ -69,6 +69,7 @@ const transform = (jsonSummaryPath) => (log) => (vcsInfo) => (teamAssignmentsPat
 };
 
 function rootDirAndOrigPath(obj) {
+  console.log(`rootDirAndOrigPath`);
   return {
     ...obj,
     originalFilePath: obj.staticSiteUrl,

@@ -20,8 +20,8 @@ FETCHED_PREVIOUS=$4
 export FETCHED_PREVIOUS
 echo "### debug FETCHED_PREVIOUS: ${FETCHED_PREVIOUS}"
 
-ES_HOST="https://${USER_FROM_VAULT}:${PASS_FROM_VAULT}@${HOST_FROM_VAULT}"
-export ES_HOST
+# ES_HOST="https://${USER_FROM_VAULT}:${PASS_FROM_VAULT}@${HOST_FROM_VAULT}"
+# export ES_HOST
 
 STATIC_SITE_URL_BASE='https://kibana-coverage.elastic.dev'
 export STATIC_SITE_URL_BASE
@@ -31,6 +31,7 @@ echo "### debug TEAM_ASSIGN_PATH: ${TEAM_ASSIGN_PATH}"
 
 BUFFER_SIZE=500
 export BUFFER_SIZE
+echo "### debug BUFFER_SIZE: ${BUFFER_SIZE}"
 
 # Build team assignments dat file
 #node scripts/generate_team_assignments.js --verbose --src .github/CODEOWNERS --dest $TEAM_ASSIGN_PATH

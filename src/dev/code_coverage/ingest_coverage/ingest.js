@@ -20,7 +20,7 @@ export const ingestList = (log) => async (xs) => {
   fromNullable(process.env.NODE_ENV).fold(bulkIngest, justLog);
 
   async function bulkIngest() {
-    log.info(`\n${ccMark} Ingesting ${xs.length} docs at a time`);
+    console.log(`\n${ccMark} Ingesting ${xs.length} docs at a time`);
 
     const body = parseIndexes(xs);
 

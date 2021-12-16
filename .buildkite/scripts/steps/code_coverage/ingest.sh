@@ -54,13 +54,15 @@ rm -rf target/kibana-coverage/jest && mkdir target/kibana-coverage/jest
 # archive reports to upload as build artifacts
 # echo "--- Archive combined functional report"
 # tar -czf target/kibana-coverage/functional/kibana-functional-coverage.tar.gz target/kibana-coverage/functional-combined
-echo "--- Archive combined jest report"
-tar -czf target/kibana-coverage/jest/kibana-jest-coverage.tar.gz target/kibana-coverage/jest-combined
+# echo "--- Archive combined jest report"
+# tar -czf target/kibana-coverage/jest/kibana-jest-coverage.tar.gz target/kibana-coverage/jest-combined
 
 echo "--- Upload coverage static site"
 .buildkite/scripts/steps/code_coverage/ingest/uploadStaticSite.sh
 
 echo "--- Ingest results to Kibana stats cluster"
 export NODE_ENV=test
+
+ls -la src/dev/code_coverage/ingest_coverage/team_assignment
 
 .buildkite/scripts/steps/code_coverage/ingest/ingestData.sh 'elastic+kibana+code-coverage' ${BUILDKITE_BUILD_ID} ${BUILDKITE_BUILD_URL} ${previousSha} 'src/dev/code_coverage/ingest_coverage/team_assignment/team_assignments.txt'
