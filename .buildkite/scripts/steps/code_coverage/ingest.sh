@@ -54,8 +54,8 @@ rm -rf target/kibana-coverage/jest && mkdir target/kibana-coverage/jest
 # archive reports to upload as build artifacts
 # echo "--- Archive combined functional report"
 # tar -czf target/kibana-coverage/functional/kibana-functional-coverage.tar.gz target/kibana-coverage/functional-combined
-# echo "--- Archive combined jest report"
-# tar -czf target/kibana-coverage/jest/kibana-jest-coverage.tar.gz target/kibana-coverage/jest-combined
+echo "--- Archive combined jest report"
+tar -czf target/kibana-coverage/jest/kibana-jest-coverage.tar.gz target/kibana-coverage/jest-combined
 
 echo "--- Upload coverage static site"
 .buildkite/scripts/steps/code_coverage/ingest/uploadStaticSite.sh
