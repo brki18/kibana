@@ -1570,13 +1570,13 @@
   dependencies:
     "@elastic/ecs-helpers" "^1.1.0"
 
-"@elastic/elasticsearch@8.8.1":
-  version "8.8.1"
-  resolved "https://registry.yarnpkg.com/@elastic/elasticsearch/-/elasticsearch-8.8.1.tgz#a3cee66f8588f3534eb6641530994daac9eb0caa"
-  integrity sha512-ibArPKHEmak3jao7xts2gROATiwPQo9aOrWWdix5mJcX1gnjm/UeJBVO901ROmaxFVPKxVnjC9Op3gJYkqagjg==
+"@elastic/elasticsearch@8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@elastic/elasticsearch/-/elasticsearch-8.0.0.tgz#c9aaf8be238ef87eadec89c97b0cfe8209f3d5ae"
+  integrity sha512-V9H35N4rc9uxf+5WYSOwdwdJeP+oa5i933QuMKJNaLj9PbADVXj1sCkCt7qdAmRf/0qOuTuVK18fNrkHhWUDCA==
   dependencies:
-    "@elastic/transport" "^8.3.2"
-    tslib "^2.4.0"
+    "@elastic/transport" "^8.0.1"
+    tslib "^2.3.0"
 
 "@elastic/ems-client@8.0.0":
   version "8.0.0"
@@ -1758,10 +1758,10 @@
     ts-node "^10.2.1"
     typescript "^4.3.5"
 
-"@elastic/transport@^8.3.2":
-  version "8.3.2"
-  resolved "https://registry.yarnpkg.com/@elastic/transport/-/transport-8.3.2.tgz#295e91f43e3a60a839f998ac3090a83ddb441592"
-  integrity sha512-ZiBYRVPj6pwYW99fueyNU4notDf7ZPs7Ix+4T1btIJsKJmeaORIItIfs+0O7KV4vV+DcvyMhkY1FXQx7kQOODw==
+"@elastic/transport@^8.0.1":
+  version "8.3.3"
+  resolved "https://registry.yarnpkg.com/@elastic/transport/-/transport-8.3.3.tgz#06c5b1b9566796775ac96d17959dafc269da5ec1"
+  integrity sha512-g5nc//dq/RQUTMkJUB8Ui8KJa/WflWmUa7yLl4SRZd67PPxIp3cn+OvGMNIhpiLRcfz1upanzgZHb/7Po2eEdQ==
   dependencies:
     debug "^4.3.4"
     hpagent "^1.0.0"
@@ -27641,7 +27641,7 @@ tslib@^2.0.0, tslib@^2.0.1, tslib@^2.2.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.2.0.tgz#fb2c475977e35e241311ede2693cee1ec6698f5c"
   integrity sha512-gS9GVHRU+RGn5KQM2rllAlR3dU6m7AcpJKdtH8gFvQiC4Otgk98XnmMU+nZenHt/+VhnBPWwgrJsyrdcw6i23w==
 
-tslib@^2.4.0:
+tslib@^2.3.0, tslib@^2.4.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.6.1.tgz#fd8c9a0ff42590b25703c0acb3de3d3f4ede0410"
   integrity sha512-t0hLfiEKfMUoqhG+U1oid7Pva4bbDPHYfJNiB7BiIjRkj1pyC++4N3huJfqY6aRH6VTB0rvtzQwjM4K6qpfOig==
